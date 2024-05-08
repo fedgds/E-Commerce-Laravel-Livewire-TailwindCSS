@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\OrderResource\Pages;
 
 use App\Filament\Resources\OrderResource;
+use App\Filament\Resources\OrderResource\Widgets\OrderStats;
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 
 class ListOrders extends ListRecords
@@ -14,6 +16,25 @@ class ListOrders extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            OrderStats::class
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            null => Tab::make('All'),
+            'Mới' => Tab::make()->query(fn ($query) => $query->where('status', 'new')),
+            'Chờ xác nhận' => Tab::make()->query(fn ($query) => $query->where('status', 'processing')),
+            'Đang giao' => Tab::make()->query(fn ($query) => $query->where('status', 'shipped')),
+            'Đã giao' => Tab::make()->query(fn ($query) => $query->where('status', 'delivered')),
+            'Đã hủy' => Tab::make()->query(fn ($query) => $query->where('status', 'cancelled')),
         ];
     }
 }
