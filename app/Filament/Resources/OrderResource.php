@@ -34,6 +34,8 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
+    protected static ?int $navigationSort = 6;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -199,30 +201,38 @@ class OrderResource extends Resource
                 TextColumn::make('payment_method')
                     ->label('Phương thức thanh toán')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->getStateUsing(function ($record) {
+                        return match($record->payment_method) {
+                            'momo' => 'Momo',
+                            'cod' => 'Tiền mặt'
+                        };
+                    }),
 
-                SelectColumn::make('payment_status')
+                TextColumn::make('payment_status')
                     ->label('Trạng thái thanh toán')
                     ->searchable()
                     ->sortable()
-                    ->disabled()
-                    ->options([
-                        'pending' => 'Chờ xác nhận',
-                        'paid' => 'Đã thanh toán',
-                        'failed' => 'Thất bại'
-                    ]),
+                    ->getStateUsing(function ($record) {
+                        return match($record->payment_status) {
+                            'pending' => 'Chờ xác nhận',
+                            'paid' => 'Đã thanh toán',
+                            'failed' => 'Thất bại'
+                        };
+                    }),
 
-                SelectColumn::make('shipping_method')
+                TextColumn::make('shipping_method')
                     ->label('Vận chuyển')
                     ->searchable()
                     ->sortable()
-                    ->disabled()
-                    ->options([
-                        'vietnam_post' => 'Bưu điện Việt Nam',
-                        'viettel_post' => 'Viettel Post',
-                        'ghn' => 'Giao hàng nhanh',
-                        'grab_express' => 'Grab Express'
-                    ]),
+                    ->getStateUsing(function ($record) {
+                        return match($record->shipping_method) {
+                            'vietnam_post' => 'Bưu điện Việt Nam',
+                            'viettel_post' => 'Viettel Post',
+                            'ghn' => 'Giao hàng nhanh',
+                            'grab_express' => 'Grab Express'
+                        };
+                    }),
                     
                 SelectColumn::make('status')
                     ->label('Trạng thái đơn hàng')
