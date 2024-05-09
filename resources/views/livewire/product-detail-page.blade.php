@@ -1,5 +1,6 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-    <section class="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
+  <section class="py-10 bg-gray-50 font-poppins dark:bg-gray-800 rounded-lg">
+    <h1 style="font-family: cursive" class="text-center mb-5 text-5xl text-rose-600">Chi tiết sản phẩm</h1>
       <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
         <div class="flex flex-wrap -mx-4">
           <div class="w-full mb-8 md:w-1/2 md:mb-0" x-data="{ mainImage: 'https://m.media-amazon.com/images/I/71f5Eu5lJSL._SX679_.jpg' }">

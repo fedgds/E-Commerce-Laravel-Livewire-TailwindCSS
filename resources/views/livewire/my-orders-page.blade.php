@@ -1,5 +1,6 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-    <h1 class="text-4xl font-bold text-slate-500">My Orders</h1>
+  <section class="py-10 bg-gray-50 font-poppins dark:bg-gray-800 rounded-lg">
+    <h1 style="font-family: cursive" class="text-center mb-5 text-5xl text-rose-600">Đơn hàng của tôi</h1>
     <div class="flex flex-col bg-white p-5 rounded mt-4 shadow-lg">
       <div class="-m-1.5 overflow-x-auto">
         <div class="p-1.5 min-w-full inline-block align-middle">
@@ -55,4 +56,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
+</div>

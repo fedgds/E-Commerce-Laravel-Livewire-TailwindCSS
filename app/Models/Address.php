@@ -14,6 +14,7 @@ class Address extends Model
         'order_id',
         'full_name',
         'phone',
+        'address',
         'district',
         'city'
     ];

@@ -1,6 +1,7 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
+  <section class="py-10 bg-gray-50 font-poppins dark:bg-gray-800 rounded-lg">
+    <h1 style="font-family: cursive" class="text-center mb-5 text-5xl text-rose-600">Giỏ hàng</h1>
     <div class="container mx-auto px-4">
-      <h1 class="text-2xl font-semibold mb-4">Shopping Cart</h1>
       <div class="flex flex-col md:flex-row gap-4">
         <div class="md:w-3/4">
           <div class="bg-white overflow-x-auto rounded-lg shadow-md p-6 mb-4">
@@ -63,4 +64,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
+</div>

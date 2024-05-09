@@ -36,6 +36,13 @@ class AddressRelationManager extends RelationManager
                     ->maxLength(20)
                     ->columnSpanFull(),
 
+                TextInput::make('address')
+                    ->label('Địa chỉ')
+                    ->placeholder('Nhập địa chỉ')
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+
                 TextInput::make('district')
                     ->label('Quận/Huyện')
                     ->placeholder('Nhập quận/huyện')
@@ -60,6 +67,9 @@ class AddressRelationManager extends RelationManager
 
                 TextColumn::make('phone')
                     ->label('SĐT'),
+
+                TextColumn::make('address')
+                    ->label('Địa chỉ'),
 
                 TextColumn::make('district')
                     ->label('Quận/Huyện'),
