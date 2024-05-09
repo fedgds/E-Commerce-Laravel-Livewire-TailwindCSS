@@ -7,7 +7,7 @@
               <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Đăng nhập</h1>
               <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 Bạn chưa có tài khoản?
-                <a class="text-rose-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/register">
+                <a wire:navigate class="text-rose-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/register">
                   Đăng ký
                 </a>
               </p>
@@ -37,7 +37,7 @@
                 <div>
                   <div class="flex justify-between items-center">
                     <label for="password" class="block text-sm mb-2 dark:text-white">Mật khẩu</label>
-                    <a class="text-sm text-rose-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/forgot">Quên mật khẩu?</a>
+                    <a wire:navigate class="text-sm text-rose-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/forgot">Quên mật khẩu?</a>
                   </div>
                   <div class="relative">
                     <input type="password" id="password" name="password" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-rose-500 focus:ring-rose-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="password-error">
