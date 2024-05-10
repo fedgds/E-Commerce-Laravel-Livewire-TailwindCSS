@@ -66,7 +66,7 @@ class ProductResource extends Resource
                             ->prefix('VND')
                             ->required(),
   
-                        TextInput::make('sale_price')
+                            TextInput::make('sale_price')
                             ->label('Giá khuyến mãi')
                             ->placeholder('Nhập giá khuyến mãi')
                             ->columnSpanFull()
@@ -74,7 +74,14 @@ class ProductResource extends Resource
                             ->minValue(1)
                             ->prefix('VND')
                             ->required()
-                            ->visible(fn ($get) => $get('on_sale')),
+                            ->visible(fn ($get) => $get('on_sale'))
+                            ->rule('lte:price', function ($get) {
+                                if ($get('sale_price') >= $get('price')) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }),
                             
                         Toggle::make('on_sale')
                         ->label('Giảm giá')
@@ -158,12 +165,13 @@ class ProductResource extends Resource
                     ->money('VND')
                     ->sortable(),
 
+                TextColumn::make('sale_price')
+                    ->label('Giá khuyến mãi')
+                    ->money('VND')
+                    ->sortable(),
+
                 IconColumn::make('is_featured')
                     ->label('Nổi bật')
-                    ->boolean(),
-
-                IconColumn::make('on_sale')
-                    ->label('Giảm giá')
                     ->boolean(),
 
                 IconColumn::make('in_stock')

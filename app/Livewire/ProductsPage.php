@@ -26,7 +26,7 @@ class ProductsPage extends Component
     #[Url]
     public $price_range;
     #[Url]
-    public $sort_order;
+    public $sort;
     public function render()
     {
         $productQuery = Product::query()->where('is_active', 1);
@@ -55,7 +55,7 @@ class ProductsPage extends Component
             $productQuery->whereBetween('price', [0, $this->price_range]);
         }
 
-        switch ($this->sort_order) {
+        switch ($this->sort) {
             case 'latest':
                 $productQuery->orderBy('created_at', 'desc');
                 break;

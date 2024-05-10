@@ -73,7 +73,7 @@
             <div class="px-3 mb-4">
               <div class="items-center justify-between hidden md:flex dark:bg-gray-900 ">
                 <div class="flex items-center justify-between">
-                  <select wire:model.live="sort_order" class="block w-50 text-base bg-gray-200 px-3 py-2 cursor-pointer dark:text-gray-400 dark:bg-gray-900 rounded-lg">
+                  <select wire:model.live="sort" class="block w-50 text-base bg-gray-200 px-3 py-2 cursor-pointer dark:text-gray-400 dark:bg-gray-900 rounded-lg">
                     <option value="latest">Sắp xếp theo mới nhất</option>
                     <option value="price_asc">Sắp xếp theo giá tăng dần</option>
                     <option value="price_desc">Sắp xếp theo giá giảm dần</option>
@@ -84,7 +84,7 @@
             <div class="flex flex-wrap items-center ">
               
               @foreach($products as $product)
-                <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3" wire:key="{{ $product->id }}">
+                <div class="w-full h-full px-3 mb-6 sm:w-1/2 md:w-1/3" wire:key="{{ $product->id }}">
                   <div class="border border-gray-300 dark:border-gray-700">
                     <div class="relative bg-gray-200">
                       <a href="/products/{{ $product->slug }}" class="">
@@ -94,11 +94,16 @@
                     <div class="p-3 ">
                       <div class="flex items-center justify-between gap-2 mb-2">
                         <h3 class="text-x font-medium dark:text-gray-400">
-                          {{ $product->name }}
+                          {{ strlen($product->name) > 22 ? substr($product->name, 0, 22) . '...' : $product->name }}
                         </h3>
                       </div>
                       <p class="text-l ">
-                        <span class="text-green-600 dark:text-green-600">{{ number_format($product->price) }} đ</span>
+                        @if ($product->sale_price)
+                          <span class="font-bold mr-1 text-rose-600 dark:text-rose-600">{{ number_format($product->sale_price) }} đ</span>
+                          <span class="font-bold text-sm line-through text-gray-800 dark:text-gray-800">{{ number_format($product->price) }} đ</span>
+                        @else
+                        <span class="font-bold text-rose-600 dark:text-rose-600">{{ number_format($product->price) }} đ</span>
+                        @endif
                       </p>
                     </div>
                     <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">

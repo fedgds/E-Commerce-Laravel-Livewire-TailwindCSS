@@ -120,18 +120,28 @@ class OrderResource extends Resource
                             ->schema([
 
                                 Select::make('product_id')
-                                    ->relationship('product', 'name')
-                                    ->label('Sản phẩm')
-                                    ->placeholder('Chọn sản phẩm')
-                                    ->searchable()
-                                    ->preload()
-                                    ->required()
-                                    ->distinct()
-                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
-                                    ->reactive()
-                                    ->afterStateUpdated(fn ($state, Set $set) => $set('unit_price', Product::find($state)?->price ?? 0))
-                                    ->afterStateUpdated(fn ($state, Set $set) => $set('total_price', Product::find($state)?->price ?? 0))
-                                    ->columnSpan(4),
+                                ->relationship('product', 'name')
+                                ->label('Sản phẩm')
+                                ->placeholder('Chọn sản phẩm')
+                                ->searchable()
+                                ->preload()
+                                ->required()
+                                ->distinct()
+                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                ->reactive()
+                                ->afterStateUpdated(function ($state, Set $set) {
+                                    $product = Product::find($state);
+                                    if ($product) {
+                                        // Nếu có không có giá khuyến mãi thì lấy giá gốc 
+                                        $price = $product->sale_price ?? $product->price;
+                                        $set('unit_price', $price);
+                                        $set('total_price', $price);
+                                    } else {
+                                        $set('unit_price', 0);
+                                        $set('total_price', 0);
+                                    }
+                                })
+                                ->columnSpan(4),
 
                                 TextInput::make('quantity')
                                     ->label('Số lượng')

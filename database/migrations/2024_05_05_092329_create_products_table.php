@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->json('images')->nullable();
             $table->integer('price');
+            $table->integer('sale_price')->nullable();
             $table->longText('description')->nullable();
             // cascadeOnDelete: Tự động xóa tất cả các bản ghi con liên quan
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
