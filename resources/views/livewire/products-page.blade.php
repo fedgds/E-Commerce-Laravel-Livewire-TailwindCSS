@@ -12,7 +12,7 @@
                 @foreach ($categories as $category)
                   <li class="mb-4" wire:key="{{ $category->id }}">
                     <label for="{{ $category->slug }}" class="flex items-center dark:text-gray-400 ">
-                      <input type="checkbox" id="{{ $category->slug }}" value="{{ $category->id }}" class="w-4 h-4 mr-2">
+                      <input type="checkbox" wire:model.live="selected_categories" id="{{ $category->slug }}" value="{{ $category->id }}" class="w-4 h-4 mr-2">
                       <span class="text-lg">{{ $category->name }}</span>
                     </label>
                   </li>
@@ -29,7 +29,7 @@
                 @foreach ($brands as $brand)
                   <li class="mb-4" wire:key="{{ $brand->id }}">
                     <label for="{{ $brand->slug }}" class="flex items-center dark:text-gray-400 ">
-                      <input type="checkbox" id="{{ $brand->slug }}" value="{{ $brand->id }}" class="w-4 h-4 mr-2">
+                      <input type="checkbox" wire:model.live="selected_brands" id="{{ $brand->slug }}" value="{{ $brand->id }}" class="w-4 h-4 mr-2">
                       <span class="text-lg">{{ $brand->name }}</span>
                     </label>
                   </li>
@@ -42,14 +42,14 @@
               <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
               <ul>
                 <li class="mb-4">
-                  <label for="" class="flex items-center dark:text-gray-300">
-                    <input type="checkbox" class="w-4 h-4 mr-2">
-                    <span class="text-lg dark:text-gray-400">Tồn kho</span>
+                  <label for="featured" class="flex items-center dark:text-gray-300">
+                    <input type="checkbox" id="featured" wire:model.live="featured" value="1" class="w-4 h-4 mr-2">
+                    <span class="text-lg dark:text-gray-400">Nổi bật</span>
                   </label>
                 </li>
                 <li class="mb-4">
-                  <label for="" class="flex items-center dark:text-gray-300">
-                    <input type="checkbox" class="w-4 h-4 mr-2">
+                  <label for="on_sale" class="flex items-center dark:text-gray-300">
+                    <input type="checkbox" id="on_sale" wire:model.live="on_sale" value="1" class="w-4 h-4 mr-2">
                     <span class="text-lg dark:text-gray-400">Giảm giá</span>
                   </label>
                 </li>
@@ -60,22 +60,24 @@
               <h2 class="text-2xl font-bold dark:text-gray-400">Giá</h2>
               <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
               <div>
-                <input type="range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="500000" value="100000" step="100000">
+                <input type="range" wire:model.live="price_range" class="w-full h-1 mb-4 bg-rose-100 rounded appearance-none cursor-pointer" max="50000000" value="0" step="0">
                 <div class="flex justify-between ">
-                  <span class="inline-block text-lg font-bold text-blue-400 ">{{ number_format('1000') }} đ</span>
-                  <span class="inline-block text-lg font-bold text-blue-400 ">{{ number_format('5000000') }} đ</span>
+                  <span class="inline-block text-lg font-bold text-rose-400 ">{{ number_format('0') }} đ</span>
+                  <span class="inline-block text-lg font-bold text-rose-400 ">{{ number_format('50000000') }} đ</span>
                 </div>
+                <div class="font-semibold text-2xl text-rose-600">{{ number_format($price_range) }} đ</div>
               </div>
             </div>
           </div>
           <div class="w-full px-3 lg:w-3/4">
             <div class="px-3 mb-4">
-              <div class="items-center justify-between hidden px-3 py-2 bg-gray-100 md:flex dark:bg-gray-900 ">
+              <div class="items-center justify-between hidden md:flex dark:bg-gray-900 ">
                 <div class="flex items-center justify-between">
-                  <select name="" id="" class="block w-60 text-base bg-gray-100 cursor-pointer dark:text-gray-400 dark:bg-gray-900">
-                    <option value="">Sắp xếp theo mới nhất</option>
-                    <option value="">Sắp xếp theo giá</option>
-                  </select>
+                  <select wire:model.live="sort_order" class="block w-50 text-base bg-gray-200 px-3 py-2 cursor-pointer dark:text-gray-400 dark:bg-gray-900 rounded-lg">
+                    <option value="latest">Sắp xếp theo mới nhất</option>
+                    <option value="price_asc">Sắp xếp theo giá tăng dần</option>
+                    <option value="price_desc">Sắp xếp theo giá giảm dần</option>
+                </select>
                 </div>
               </div>
             </div>

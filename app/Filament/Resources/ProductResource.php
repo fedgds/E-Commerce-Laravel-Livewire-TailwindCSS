@@ -65,7 +65,24 @@ class ProductResource extends Resource
                             ->minValue(1)
                             ->prefix('VND')
                             ->required(),
-
+  
+                        TextInput::make('sale_price')
+                            ->label('Giá khuyến mãi')
+                            ->placeholder('Nhập giá khuyến mãi')
+                            ->columnSpanFull()
+                            ->numeric()
+                            ->minValue(1)
+                            ->prefix('VND')
+                            ->required()
+                            ->visible(fn ($get) => $get('on_sale')),
+                            
+                        Toggle::make('on_sale')
+                        ->label('Giảm giá')
+                        ->required()
+                        ->reactive()
+                        ->afterStateUpdated(fn ($state, $set) => 
+                            $set('sale_price', $state ? null : null)),
+    
                         MarkdownEditor::make('description')
                             ->label('Mô tả')
                             ->placeholder('Mô tả sản phẩm')
@@ -114,9 +131,6 @@ class ProductResource extends Resource
                         Toggle::make('is_featured')
                             ->label('Nổi bật')
                             ->required(),
-                        Toggle::make('on_sale')
-                            ->label('Giảm giá')
-                            ->required()
                     ])
                 ])->columnSpan(1)
 
