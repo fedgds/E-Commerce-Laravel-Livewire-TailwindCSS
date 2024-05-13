@@ -8,58 +8,74 @@
             <table class="w-full">
               <thead>
                 <tr>
-                  <th class="text-left font-semibold">Product</th>
-                  <th class="text-left font-semibold">Price</th>
-                  <th class="text-left font-semibold">Quantity</th>
-                  <th class="text-left font-semibold">Total</th>
-                  <th class="text-left font-semibold">Remove</th>
+                  <th class="text-center font-semibold">Tên sản phẩm</th>
+                  <th class="text-center font-semibold">Ảnh</th>
+                  <th class="text-center font-semibold">Giá</th>
+                  <th class="text-center font-semibold">Số lượng</th>
+                  <th class="text-center font-semibold">Tổng</th>
+                  <th class="text-center font-semibold">Xóa</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="py-4">
-                    <div class="flex items-center">
-                      <img class="h-16 w-16 mr-4" src="https://via.placeholder.com/150" alt="Product image">
-                      <span class="font-semibold">Product name</span>
-                    </div>
-                  </td>
-                  <td class="py-4">$19.99</td>
-                  <td class="py-4">
-                    <div class="flex items-center">
-                      <button class="border rounded-md py-2 px-4 mr-2">-</button>
-                      <span class="text-center w-8">1</span>
-                      <button class="border rounded-md py-2 px-4 ml-2">+</button>
-                    </div>
-                  </td>
-                  <td class="py-4">$19.99</td>
-                  <td><button class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700">Remove</button></td>
-                </tr>
-                <!-- More product rows -->
+                @forelse ($cart_items as $item)
+                  <tr class="text-center" wire:key='{{ $item['product_id'] }}'>
+                    <td class="py-4">
+                      <span class="font-semibold">{{ $item['name'] }}</span>
+                    </td>
+                    <td>
+                      <img class="h-16 w-16 mr-4" src="{{ url('storage', $item['image']) }}" alt="">
+                    </td>
+                    <td class="py-4">
+                      {{ number_format($item['unit_amount']) }} đ
+                    </td>
+                    <td class="py-4">
+                        <button wire:click='decreaseQty({{ $item['product_id'] }})' class="border rounded-md py-1 px-2 mr-2 hover:bg-rose-300">-</button>
+                        <span class="text-center w-8">{{ $item['quantity'] }}</span>
+                        <button wire:click='increaseQty({{ $item['product_id'] }})' class="border rounded-md py-1 px-2 ml-2 hover:bg-rose-300">+</button>
+                    </td>
+                    <td class="py-4">
+                      {{ number_format($item['total_amount']) }} đ
+                    </td>
+                    <td>
+                      <button wire:click='removeItem({{ $item['product_id'] }})' class="bg-black text-white rounded-full p-1 hover:bg-red-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td colspan="6" class="text-xl text-center font-bold pt-3">Chưa có sản phẩm nào trong giỏ hàng</td>
+                  </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
         </div>
         <div class="md:w-1/4">
           <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-lg font-semibold mb-4">Summary</h2>
+            <h2 class="text-lg font-semibold mb-4">Tóm tắt</h2>
             <div class="flex justify-between mb-2">
-              <span>Subtotal</span>
-              <span>$19.99</span>
+              <span>Tổng tiền</span>
+              <span>{{ number_format($grand_total) }} đ</span>
             </div>
             <div class="flex justify-between mb-2">
-              <span>Taxes</span>
-              <span>$1.99</span>
+              <span>Thuế</span>
+              <span>0 đ</span>
             </div>
             <div class="flex justify-between mb-2">
-              <span>Shipping</span>
-              <span>$0.00</span>
+              <span>Phí vận chuyển</span>
+              <span>0 đ</span>
             </div>
             <hr class="my-2">
             <div class="flex justify-between mb-2">
-              <span class="font-semibold">Total</span>
-              <span class="font-semibold">$21.98</span>
+              <span class="font-semibold">Tổng cộng</span>
+              <span class="font-semibold">{{ number_format($grand_total) }} đ</span>
             </div>
-            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+            @if ($cart_items)
+              <button class="bg-gray-900 hover:bg-rose-600 text-white py-2 px-4 rounded-lg mt-4 w-full">Thanh toán</button>
+            @endif
           </div>
         </div>
       </div>

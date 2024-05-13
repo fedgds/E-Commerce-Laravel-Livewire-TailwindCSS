@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ $title ?? 'ShopWise' }}</title>
+        <link rel="icon" href="/img/title.png" type="image/png">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
@@ -14,6 +15,11 @@
             {{ $slot }}
         </main>
         @livewire('section.footer')
+        
         @livewireScripts
+        
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <x-livewire-alert::scripts />
     </body>
 </html>
