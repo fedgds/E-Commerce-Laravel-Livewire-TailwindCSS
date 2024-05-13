@@ -74,7 +74,7 @@
               <span class="font-semibold">{{ number_format($grand_total) }} đ</span>
             </div>
             @if ($cart_items)
-              <button class="bg-gray-900 hover:bg-rose-600 text-white py-2 px-4 rounded-lg mt-4 w-full">Thanh toán</button>
+              <a href="/checkout" class="bg-gray-900 hover:bg-rose-600 block text-center text-white py-2 px-4 rounded-lg mt-4 w-full">Thanh toán</a>
             @endif
           </div>
         </div>
