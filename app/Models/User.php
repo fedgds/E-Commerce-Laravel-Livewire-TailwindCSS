@@ -25,6 +25,7 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'email_verified_at',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -52,9 +53,10 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Order::class);
     }
 
+    // Quyền vào trang quản trị 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->email == 'admin@gmail.com';
+        return $this->is_admin == 1;
     }
 
 }

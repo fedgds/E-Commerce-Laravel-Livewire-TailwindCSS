@@ -192,62 +192,119 @@
 		</form>
 	</section>
 	<script>
-        var config = {
-			cUrl: 'https://api.countrystatecity.in/v1/countries',
-			ckey: 'WjBGY1llamo2U1d2cTlDSXdrQzk3QU9YWXZjVmhlckpDc2owSWhENw=='
-		}
+        // var config = {
+		// 	cUrl: 'https://api.countrystatecity.in/v1/countries',
+		// 	ckey: 'WjBGY1llamo2U1d2cTlDSXdrQzk3QU9YWXZjVmhlckpDc2owSWhENw=='
+		// }
 
 
-		var stateSelect = document.querySelector('.city'),
-			citySelect = document.querySelector('.district')
+		// var stateSelect = document.querySelector('.city'),
+		// 	citySelect = document.querySelector('.district')
 
+		// function loadCities() {
+		// 	stateSelect.disabled = false;
+		// 	citySelect.disabled = true;
+		// 	stateSelect.style.pointerEvents = 'auto';
+		// 	citySelect.style.pointerEvents = 'none';
+
+		// 	const selectedCountryCode = 'VN'; // Đặt quốc gia là việt nam
+
+		// 	fetch(`${config.cUrl}/${selectedCountryCode}/states`, {
+		// 		headers: {"X-CSCAPI-KEY": config.ckey}
+		// 	})
+		// 	.then(response => response.json())
+		// 	.then(data => {
+		// 		stateSelect.innerHTML = '<option value="">Chọn thành phố</option>'; 
+
+		// 		data.forEach(state => {
+		// 			const option = document.createElement('option');
+		// 			option.textContent = state.name;
+		// 			option.value = state.name;
+		// 			option.dataset.iso2 = state.iso2;
+		// 			stateSelect.appendChild(option);
+		// 		});
+		// 	})
+		// 	.catch(error => console.error('Error loading cities:', error));
+		// }
+
+		// function loadDistrict() {
+		// 	citySelect.disabled = false;
+		// 	citySelect.style.pointerEvents = 'auto';
+
+		// 	const selectedCountryCode = 'VN';
+		// 	const selectedState = stateSelect.options[stateSelect.selectedIndex]; 
+		// 	const selectedStateCode = selectedState.dataset.iso2;
+
+		// 	citySelect.innerHTML = '<option value="">Chọn quận huyện</option>';
+
+		// 	fetch(`${config.cUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, {
+		// 		headers: {"X-CSCAPI-KEY": config.ckey}
+		// 	})
+		// 	.then(response => response.json())
+		// 	.then(data => {
+		// 		data.forEach(city => {
+		// 			const option = document.createElement('option');
+		// 			option.value = city.name;
+		// 			option.textContent = city.name;
+		// 			citySelect.appendChild(option);
+		// 		});
+		// 	})
+		// 	.catch(error => console.error('Error loading districts:', error));
+		// }
+
+		// window.onload = loadCities;
+		var config = {
+			cUrl: 'http://127.0.0.1:8000/api/cities'
+		};
+
+		var citySelect = document.querySelector('.city'),
+			districtSelect = document.querySelector('.district');
 
 		function loadCities() {
-			stateSelect.disabled = false
-			citySelect.disabled = true
-			stateSelect.style.pointerEvents = 'auto'
-			citySelect.style.pointerEvents = 'none'
-		
-			const selectedCountryCode = 'VN'; // Chỉ định mã quốc gia của Việt Nam
-		
-			fetch(`${config.cUrl}/${selectedCountryCode}/states`, {headers: {"X-CSCAPI-KEY": config.ckey}})
-			.then(response => response.json())
-			.then(data => {
-		
-				data.forEach(state => {
-					const option = document.createElement('option')
-					option.value = state.iso2
-					option.textContent = state.name 
-					stateSelect.appendChild(option)
-				})
-			})
-			.catch(error => console.error('Error loading states:', error))
-		}
-		
-		function loadDistrict() {
-			citySelect.disabled = false
-			citySelect.style.pointerEvents = 'auto'
-		
-			const selectedCountryCode = 'VN';
-			const selectedStateCode = stateSelect.value
-		
-			citySelect.innerHTML = '<option value="">Chọn quận huyện</option>'
-		
-			fetch(`${config.cUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, {headers: {"X-CSCAPI-KEY": config.ckey}})
-			.then(response => response.json())
-			.then(data => {
-		
-				data.forEach(city => {
-					const option = document.createElement('option')
-					option.value = city.iso2
-					option.textContent = city.name 
-					citySelect.appendChild(option)
-				})
-			})
-			.catch(error => console.error('Error loading cities:', error))
-		}
-    
+			citySelect.disabled = false;
+			districtSelect.disabled = true;
+			citySelect.style.pointerEvents = 'auto';
+			districtSelect.style.pointerEvents = 'none';
 
-	window.onload = loadCities
-    </script>
+			fetch(`${config.cUrl}`)
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+				citySelect.innerHTML = '<option value="">Chọn thành phố</option>'; 
+
+				data.cities.forEach(city => {
+					const option = document.createElement('option');
+					option.textContent = city.city_name;
+					option.value = city.city_name;
+					option.dataset.id = city.id;
+					citySelect.appendChild(option);
+				});
+			})
+			.catch(error => console.error('Lỗi tải thành phố:', error));
+		}
+
+		function loadDistrict() {
+			districtSelect.disabled = false;
+			districtSelect.style.pointerEvents = 'auto';
+
+			const selectedCity = citySelect.options[citySelect.selectedIndex];
+			const selectedCityCode = selectedCity.dataset.id;
+
+			districtSelect.innerHTML = '<option value="">Chọn quận huyện</option>';
+
+			fetch(`${config.cUrl}/${selectedCityCode}/districts`)
+			.then(response => response.json())
+			.then(data => {
+				data.district.forEach(district => {
+					const option = document.createElement('option');
+					option.value = district.district_name;
+					option.textContent = district.district_name;
+					districtSelect.appendChild(option);
+				});
+			})
+			.catch(error => console.error('Lỗi tải quận huyện:', error));
+		}
+
+		window.onload = loadCities;
+	</script>
 </div>

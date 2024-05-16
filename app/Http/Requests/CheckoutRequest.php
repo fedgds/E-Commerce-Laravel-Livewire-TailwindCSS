@@ -23,7 +23,7 @@ class CheckoutRequest extends FormRequest
     {
         return [
             'full_name' => 'required',
-            'phone' => 'required',
+            'phone' => ['required', 'regex:/^(0|\+84)\d{9,10}$/'],
             'city' => 'required',
             'district' => 'required',
             'address' => 'required',
@@ -36,6 +36,7 @@ class CheckoutRequest extends FormRequest
         return [
             'full_name.required' => 'Vui lòng nhập họ và tên',
             'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.regex' => 'Vui lòng nhập số điện thoại đúng định dạng',
             'city.required' => 'Vui lòng nhập thành phố',
             'district.required' => 'Vui lòng nhập quận huyện',
             'payment_method.required' => 'Vui lòng chọn phương thức thanh toán',

@@ -9,6 +9,7 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
@@ -50,7 +51,10 @@ class UserResource extends Resource
                     ->password()
                     ->dehydrated(fn($state) => filled($state))// Kiểm tra xem trường mật khẩu đã được nhập trước đó hay chưa
                     // Nếu đã nhập trước đó, trường mật khẩu sẽ hiển thị trạng thái đã nhập trước đó khi trang được tải lại 
-                    ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                    ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord),
+                Toggle::make('is_admin')
+                    ->label('Quản trị')
+                    ->required()
             ]);
     }
 
@@ -64,9 +68,20 @@ class UserResource extends Resource
                 TextColumn::make('email')
                     ->searchable(),
                 TextColumn::make('email_verified_at')
+                    ->label('Xác thực email lúc')
                     ->dateTime()
                     ->sortable(),
-                    TextColumn::make('created_at')
+                TextColumn::make('is_admin')
+                    ->label('Vai trò')
+                    ->searchable()
+                    ->sortable()
+                    ->getStateUsing(function ($record) {
+                        return match($record->is_admin) {
+                            1 => 'Admin',
+                            0 => 'Khách hàng'
+                        };
+                    }),
+                TextColumn::make('created_at')
                     ->label('Tạo lúc')
                     ->dateTime()
                     ->sortable(),

@@ -31,6 +31,7 @@ class CheckoutPage extends Component
             'payment_method' => $validationData['rules']['payment_method'],
         ], $validationData['messages']);
 
+        dd($this->full_name, $this->phone, $this->city, $this->district, $this->address, $this->payment_method);
         
     }
 
