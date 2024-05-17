@@ -61,6 +61,45 @@
           <p class="text-gray-700 dark:text-gray-400">{{ $product->description }}</p>
         </div>
         <div class="mt-10">
+          <h2 class="font-bold text-xl mb-5">Bình luận</h2>
+          @if ($product->comments->isEmpty())
+              <p class="text-center text-gray-500 mb-4">Chưa có bình luận nào cho sản phẩm này.</p>
+          @else
+              <table class="w-full table-auto border-collapse border border-slate-200 mb-5 rounded-md p-4">
+                  <thead>
+                      <tr class="text-rose-600">
+                          <th>Khách hàng</th>
+                          <th>Nội dung</th>
+                          <th>Ngày bình luận</th>
+                          @if (auth()->user()->is_admin == 1)
+                            <th>Xóa bình luận</th>
+                          @endif
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($product->comments as $comment)
+                          <tr class="text-center">
+                              <td>{{ $comment->user->name }}</td>
+                              <td>{{ $comment->content }}</td>
+                              <td>{{ $comment->created_at->format('d-m-Y') }}</td>
+                              @if (auth()->user()->is_admin == 1)
+                                <td>
+                                  <a wire:click.prevent='deleteComments({{ $comment->id }})' href="" class="text-rose-600 font-bold">Gỡ</a>
+                                </td>
+                              @endif
+                          </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+          @endif
+          <form wire:submit.prevent='comment'>
+              <div>
+                  <textarea wire:model='content' class="w-full rounded-md p-2 border border-gray-600" rows="3" placeholder="Nội dung bình luận..."></textarea>
+                  <button type="submit" class="rounded-xl bg-black text-white hover:bg-rose-600 px-4 py-1">Gửi</button>
+              </div>
+          </form>
+        </div>      
+        <div class="mt-10">
           <h2 class="font-bold text-xl mb-5">Sản phẩm liên quan</h2>
           <div class="flex flex-wrap items-center ">
               

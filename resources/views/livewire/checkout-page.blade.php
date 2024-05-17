@@ -192,67 +192,6 @@
 		</form>
 	</section>
 	<script>
-        // var config = {
-		// 	cUrl: 'https://api.countrystatecity.in/v1/countries',
-		// 	ckey: 'WjBGY1llamo2U1d2cTlDSXdrQzk3QU9YWXZjVmhlckpDc2owSWhENw=='
-		// }
-
-
-		// var stateSelect = document.querySelector('.city'),
-		// 	citySelect = document.querySelector('.district')
-
-		// function loadCities() {
-		// 	stateSelect.disabled = false;
-		// 	citySelect.disabled = true;
-		// 	stateSelect.style.pointerEvents = 'auto';
-		// 	citySelect.style.pointerEvents = 'none';
-
-		// 	const selectedCountryCode = 'VN'; // Đặt quốc gia là việt nam
-
-		// 	fetch(`${config.cUrl}/${selectedCountryCode}/states`, {
-		// 		headers: {"X-CSCAPI-KEY": config.ckey}
-		// 	})
-		// 	.then(response => response.json())
-		// 	.then(data => {
-		// 		stateSelect.innerHTML = '<option value="">Chọn thành phố</option>'; 
-
-		// 		data.forEach(state => {
-		// 			const option = document.createElement('option');
-		// 			option.textContent = state.name;
-		// 			option.value = state.name;
-		// 			option.dataset.iso2 = state.iso2;
-		// 			stateSelect.appendChild(option);
-		// 		});
-		// 	})
-		// 	.catch(error => console.error('Error loading cities:', error));
-		// }
-
-		// function loadDistrict() {
-		// 	citySelect.disabled = false;
-		// 	citySelect.style.pointerEvents = 'auto';
-
-		// 	const selectedCountryCode = 'VN';
-		// 	const selectedState = stateSelect.options[stateSelect.selectedIndex]; 
-		// 	const selectedStateCode = selectedState.dataset.iso2;
-
-		// 	citySelect.innerHTML = '<option value="">Chọn quận huyện</option>';
-
-		// 	fetch(`${config.cUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, {
-		// 		headers: {"X-CSCAPI-KEY": config.ckey}
-		// 	})
-		// 	.then(response => response.json())
-		// 	.then(data => {
-		// 		data.forEach(city => {
-		// 			const option = document.createElement('option');
-		// 			option.value = city.name;
-		// 			option.textContent = city.name;
-		// 			citySelect.appendChild(option);
-		// 		});
-		// 	})
-		// 	.catch(error => console.error('Error loading districts:', error));
-		// }
-
-		// window.onload = loadCities;
 		var config = {
 			cUrl: 'http://127.0.0.1:8000/api/cities'
 		};
