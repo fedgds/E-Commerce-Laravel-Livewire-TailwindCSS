@@ -32,6 +32,8 @@ class ProductsPage extends Component
     public $price_range;
     #[Url]
     public $sort;
+    #[Url]
+    public $search;
     public function addToCart($product_id) {
         $total_count = CartManagement::addItemToCart($product_id);
 
@@ -71,6 +73,10 @@ class ProductsPage extends Component
             $productQuery->whereBetween('price', [0, $this->price_range]);
         }
 
+        if ($this->search) {
+            $productQuery->where('name', 'like', '%' . $this->search . '%');
+        }
+        
         switch ($this->sort) {
             case 'latest':
                 $productQuery->orderBy('created_at', 'desc');

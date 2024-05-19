@@ -18,11 +18,11 @@
           <div class="grow">
             <div class="flex items-center gap-x-2">
               <p class="text-xs uppercase tracking-wide text-gray-500">
-                Customer
+                Người nhận
               </p>
             </div>
             <div class="mt-1 flex items-center gap-x-2">
-              <div>Jace Grimes</div>
+              <div>{{ $address->full_name }}</div>
             </div>
           </div>
         </div>
@@ -44,12 +44,12 @@
           <div class="grow">
             <div class="flex items-center gap-x-2">
               <p class="text-xs uppercase tracking-wide text-gray-500">
-                Order Date
+                Ngày đặt hàng
               </p>
             </div>
             <div class="mt-1 flex items-center gap-x-2">
               <h3 class="text-xl font-medium text-gray-800 dark:text-gray-200">
-                17-02-2024
+                {{ $order->created_at->format('d-m-Y') }}
               </h3>
             </div>
           </div>
@@ -70,11 +70,21 @@
           <div class="grow">
             <div class="flex items-center gap-x-2">
               <p class="text-xs uppercase tracking-wide text-gray-500">
-                Order Status
+                Trạng thái đơn hàng
               </p>
             </div>
             <div class="mt-1 flex items-center gap-x-2">
-              <span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Processing</span>
+              @if ($order->status == 'new')
+                <span class="bg-blue-500 py-1 px-3 rounded text-white shadow">Mới</span>
+              @elseif($order->status == 'processing')
+                <span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Đang xử lý</span>
+              @elseif($order->status == 'shipped')
+                <span class="bg-orange-500 py-1 px-3 rounded text-white shadow">Đang giao hàng</span>
+              @elseif($order->status == 'delivered')
+                <span class="bg-green-500 py-1 px-3 rounded text-white shadow">Đã giao hàng</span>
+              @elseif($order->status == 'cancel')
+                <span class="bg-rose-500 py-1 px-3 rounded text-white shadow">Đã hủy</span>
+              @endif
             </div>
           </div>
         </div>
@@ -96,11 +106,17 @@
           <div class="grow">
             <div class="flex items-center gap-x-2">
               <p class="text-xs uppercase tracking-wide text-gray-500">
-                Payment Status
+                Trạng thái thanh toán
               </p>
             </div>
             <div class="mt-1 flex items-center gap-x-2">
-              <span class="bg-green-500 py-1 px-3 rounded text-white shadow">Paid</span>
+              @if ($order->payment_status == 'pending')
+                <span class="bg-blue-500 py-1 px-3 rounded text-white shadow">Chờ xử lý</span>
+              @elseif($order->payment_status == 'paid')
+                <span class="bg-green-500 py-1 px-3 rounded text-white shadow">Đã thanh toán</span>
+              @elseif($order->payment_status == 'failed')
+                <span class="bg-rose-500 py-1 px-3 rounded text-white shadow">Thất bại</span>
+              @endif
             </div>
           </div>
         </div>
@@ -115,56 +131,40 @@
           <table class="w-full">
             <thead>
               <tr>
-                <th class="text-left font-semibold">Product</th>
-                <th class="text-left font-semibold">Price</th>
-                <th class="text-left font-semibold">Quantity</th>
-                <th class="text-left font-semibold">Total</th>
+                <th class="text-left font-semibold">Sản phẩm</th>
+                <th class="text-left font-semibold">Giá</th>
+                <th class="text-left font-semibold">Số lượng</th>
+                <th class="text-left font-semibold">Tổng</th>
               </tr>
             </thead>
             <tbody>
-  
-              <!--[if BLOCK]><![endif]-->
+              @foreach ($order_items as $item)
               <tr wire:key="53">
                 <td class="py-4">
                   <div class="flex items-center">
-                    <img class="h-16 w-16 mr-4" src="https://m.media-amazon.com/images/I/71f5Eu5lJSL._SX679_.jpg" alt="Product image">
-                    <span class="font-semibold">Samsung Galaxy Watch6</span>
+                    <img class="h-16 w-16 mr-4" src="{{ url('storage', $item->product->images[0]) }}" alt="Product image">
+                    <span class="font-semibold">{{ $item->product->name }}</span>
                   </div>
                 </td>
-                <td class="py-4">₹29,999.00</td>
+                <td class="py-4">{{ number_format($item->unit_price) }} đ</td>
                 <td class="py-4">
-                  <span class="text-center w-8">1</span>
+                  <span class="text-center w-8">{{ $item->quantity }}</span>
                 </td>
-                <td class="py-4">₹29,999.00</td>
+                <td class="py-4">{{ number_format($item->total_price) }} đ</td>
               </tr>
-              <tr wire:key="54">
-                <td class="py-4">
-                  <div class="flex items-center">
-                    <img class="h-16 w-16 mr-4" src="https://m.media-amazon.com/images/I/71f5Eu5lJSL._SX679_.jpg" alt="Product image">
-                    <span class="font-semibold">Samsung Galaxy Book3</span>
-                  </div>
-                </td>
-                <td class="py-4">₹75,000.00</td>
-                <td class="py-4">
-                  <span class="text-center w-8">5</span>
-                </td>
-                <td class="py-4">₹375,000.00</td>
-              </tr>
-              <!--[if ENDBLOCK]><![endif]-->
-  
+              @endforeach
             </tbody>
           </table>
         </div>
   
         <div class="bg-white overflow-x-auto rounded-lg shadow-md p-6 mb-4">
-          <h1 class="font-3xl font-bold text-slate-500 mb-3">Shipping Address</h1>
+          <h1 class="font-3xl font-bold text-slate-500 mb-3">Địa chỉ nhận hàng</h1>
           <div class="flex justify-between items-center">
             <div>
-              <p>42227 Zoila Glens, Oshkosh, Michigan, 55928</p>
+              <p>{{ $address->city }} - {{ $address->district }} - {{ $address->address }}</p>
             </div>
             <div>
-              <p class="font-semibold">Phone:</p>
-              <p>023-509-0009</p>
+              <p class="font-semibold">Số điện thoại: {{ $address->phone }}</p>
             </div>
           </div>
         </div>
@@ -172,23 +172,23 @@
       </div>
       <div class="md:w-1/4">
         <div class="bg-white rounded-lg shadow-md p-6">
-          <h2 class="text-lg font-semibold mb-4">Summary</h2>
+          <h2 class="text-lg font-semibold mb-4">Tóm tắt</h2>
           <div class="flex justify-between mb-2">
-            <span>Subtotal</span>
-            <span>₹404,999.00</span>
+            <span>Tổng tiền</span>
+            <span>{{ number_format($order->grand_total) }} đ</span>
           </div>
           <div class="flex justify-between mb-2">
-            <span>Taxes</span>
-            <span>₹0.00</span>
+            <span>Thuế</span>
+            <span>0 đ</span>
           </div>
           <div class="flex justify-between mb-2">
-            <span>Shipping</span>
-            <span>₹0.00</span>
+            <span>Phí giao hàng</span>
+            <span>0 đ</span>
           </div>
           <hr class="my-2">
           <div class="flex justify-between mb-2">
-            <span class="font-semibold">Grand Total</span>
-            <span class="font-semibold">₹404,999.00</span>
+            <span class="font-semibold">Tổng cộng</span>
+            <span class="font-semibold">{{ number_format($order->grand_total) }} VND</span>
           </div>
   
         </div>

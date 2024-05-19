@@ -96,18 +96,6 @@ class OrderResource extends Resource
                                 'cancelled' => 'heroicon-m-x-circle'
                             ]),
 
-                            Select::make('shipping_method')
-                                ->label('Phương thức vận chuyển')
-                                ->placeholder('Chọn phương thức vận chuyển')
-                                ->options([
-                                    'vietnam_post' => 'Bưu điện Việt Nam',
-                                    'viettel_post' => 'Viettel Post',
-                                    'ghn' => 'Giao hàng nhanh',
-                                    'grab_express' => 'Grab Express'
-                                ])
-                                ->required()
-                                ->columnSpanFull(),
-
                             Textarea::make('notes')
                                 ->label('Ghi chú')
                                 ->columnSpanFull()
@@ -231,19 +219,6 @@ class OrderResource extends Resource
                         };
                     }),
 
-                TextColumn::make('shipping_method')
-                    ->label('Vận chuyển')
-                    ->searchable()
-                    ->sortable()
-                    ->getStateUsing(function ($record) {
-                        return match($record->shipping_method) {
-                            'vietnam_post' => 'Bưu điện Việt Nam',
-                            'viettel_post' => 'Viettel Post',
-                            'ghn' => 'Giao hàng nhanh',
-                            'grab_express' => 'Grab Express'
-                        };
-                    }),
-                    
                 SelectColumn::make('status')
                     ->label('Trạng thái đơn hàng')
                     ->options([

@@ -70,8 +70,8 @@
             </div>
           </div>
           <div class="w-full px-3 lg:w-3/4">
-            <div class="px-3 mb-4">
-              <div class="items-center justify-between hidden md:flex dark:bg-gray-900 ">
+            <div class="flex justify-between px-3 mb-4">
+              <div class="items-center justify-between md:flex dark:bg-gray-900 ">
                 <div class="flex items-center justify-between">
                   <select wire:model.live="sort" class="block w-50 text-base bg-gray-200 px-3 py-2 cursor-pointer dark:text-gray-400 dark:bg-gray-900 rounded-lg">
                     <option value="latest">Sắp xếp theo mới nhất</option>
@@ -79,6 +79,9 @@
                     <option value="price_desc">Sắp xếp theo giá giảm dần</option>
                 </select>
                 </div>
+              </div>
+              <div>
+                  <input wire:model.live="search" type="text" class="block w-50 text-base bg-gray-200 px-3 py-2 cursor-pointer dark:text-gray-400 dark:bg-gray-900 rounded-lg" placeholder="Tìm kiếm sản phẩm...">
               </div>
             </div>
             <div class="flex flex-wrap items-center ">

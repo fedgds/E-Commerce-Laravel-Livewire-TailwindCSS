@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomePage::class);
+Route::get('/', HomePage::class)->name('home');
 Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/cart', CartPage::class);
@@ -49,8 +49,9 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/checkout', CheckoutPage::class);
     Route::get('/my-orders', MyOrdersPage::class);
-    Route::get('/my-orders/{order}', MyOrderDetailPage::class);
+    Route::get('/my-orders/{id}', MyOrderDetailPage::class);
     Route::get('/account', AccountPage::class);
-    Route::get('/success', SuccessPage::class);
+    // Route::get('/success', SuccessPage::class);
+    Route::get('/order-success/{order}', SuccessPage::class)->name('order.success');
     Route::get('/cancel', CancelPage::class);
 });

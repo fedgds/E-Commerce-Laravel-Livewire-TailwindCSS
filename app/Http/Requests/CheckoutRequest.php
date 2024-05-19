@@ -27,7 +27,6 @@ class CheckoutRequest extends FormRequest
             'city' => 'required',
             'district' => 'required',
             'address' => 'required',
-            'payment_method' => 'required',
         ];
     }
 
@@ -39,7 +38,7 @@ class CheckoutRequest extends FormRequest
             'phone.regex' => 'Vui lòng nhập số điện thoại đúng định dạng',
             'city.required' => 'Vui lòng nhập thành phố',
             'district.required' => 'Vui lòng nhập quận huyện',
-            'payment_method.required' => 'Vui lòng chọn phương thức thanh toán',
+            'address.required' => 'Vui lòng nhập quận huyện',
         ];
     }
 

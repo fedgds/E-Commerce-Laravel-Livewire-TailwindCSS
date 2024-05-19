@@ -12,10 +12,10 @@
 								Thông tin nhận hàng
 							</h2>
 							<div class="mt-4">
-								<label class="block text-gray-700 dark:text-white mb-1" for="first_name">
+								<label class="block text-gray-700 dark:text-white mb-1" for="name">
 									Họ và Tên
 								</label>
-								<input wire:model='full_name' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="first_name" type="text" placeholder="Nhập họ và tên"></input>
+								<input wire:model='full_name' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="name" type="text" placeholder="Nhập họ và tên"></input>
 								@error('full_name')
 									<p class="text-xs text-red-600 mt-2">{{ $message }}</p>
 								@enderror
@@ -29,20 +29,6 @@
 									<p class="text-xs text-red-600 mt-2">{{ $message }}</p>
 								@enderror
 							</div>
-							{{-- <div class="grid grid-cols-2 gap-4">
-								<div>
-									<label class="block text-gray-700 dark:text-white mb-1" for="city">
-										Thành phố
-									</label>
-									<input wire:model='city' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="city" type="text"></input>
-								</div>
-								<div>
-									<label class="block text-gray-700 dark:text-white mb-1" for="address">
-										Quận/Huyện
-									</label>
-									<input wire:model='district' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="address" type="text"></input>
-								</div>
-							</div> --}}
 							<div class="grid grid-cols-2 gap-4 mt-4">
 								<div>
 									<label class="block text-gray-700 dark:text-white mb-1" for="city">
@@ -68,13 +54,19 @@
 								</div>
 							</div>
 							<div class="mt-4">
-								<label class="block text-gray-700 dark:text-white mb-1" for="phone">
+								<label class="block text-gray-700 dark:text-white mb-1" for="address">
 									Địa chỉ
 								</label>
-								<input wire:model='address' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="phone" type="text" placeholder="Nhập địa chỉ"></input>
+								<input wire:model='address' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="address" type="text" placeholder="Nhập địa chỉ"></input>
 								@error('address')
 									<p class="text-xs text-red-600 mt-2">{{ $message }}</p>
 								@enderror
+							</div>
+							<div class="mt-4">
+								<label class="block text-gray-700 dark:text-white mb-1" for="note">
+									Ghi chú
+								</label>
+								<textarea wire:model='notes' class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="note" type="text" placeholder="Ghi chú"></textarea>
 							</div>
 						</div>
 						<div class="text-lg font-semibold mb-4">
@@ -111,9 +103,6 @@
 								</label>
 							</li>
 						</ul>
-						@error('payment_method')
-							<p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-						@enderror
 					</div>
 					<!-- End Card -->
 				</div>

@@ -40,7 +40,6 @@ class CartPage extends Component
 
     public function render()
     {
-        // dd($this->cart_items);
         return view('livewire.cart-page');
     }
 }
