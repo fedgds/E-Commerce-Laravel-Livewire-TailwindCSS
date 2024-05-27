@@ -5,7 +5,7 @@
     <div><b>3. Copy .env.example into .env: </b><br>cp .env.example .env</div>
     <div><b>4. Set encryption key: </b><br>php artisan key:generate --ansi</div>
     <div><b>5. Create symbolic link: </b><br>php artisan storage:link</div>
-    <div><b>6. Run migrations: </b><br>php artisan migrate</div>
+    <div><b>6. Import file laravel_shopee.sql or Run migrations: </b><br>php artisan migrate</div>
 </div>
 <h3>Run: </h3>
 <div>
