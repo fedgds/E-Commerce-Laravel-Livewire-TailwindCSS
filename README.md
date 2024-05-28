@@ -12,3 +12,8 @@
     <div>- <b>php artisan serve</b></div>
     <div>- <b>npm run dev</b></div>
 </div>
+<h3>Admin account </h3>
+<div>
+    <div>Email: admin@gmail.com</div>
+    <div>Password: admin12345</div>
+</div>
