@@ -86,7 +86,7 @@
                 <a href="/products" class="w-full text-center px-4 py-2 text-rose-500 border border-rose-500 rounded-md md:w-auto hover:text-white hover:bg-rose-600 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-300">
                     Tiếp tục mua hàng
                 </a>
-                <a href="/orders" class="w-full text-center px-4 py-2 bg-rose-500 rounded-md text-gray-50 md:w-auto dark:text-gray-300 hover:bg-rose-600 dark:hover:bg-gray-700 dark:bg-gray-800">
+                <a href="/my-orders/{{ $order->id }}" class="w-full text-center px-4 py-2 bg-rose-500 rounded-md text-gray-50 md:w-auto dark:text-gray-300 hover:bg-rose-600 dark:hover:bg-gray-700 dark:bg-gray-800">
                     Xem đơn hàng
                 </a>
                 </div>

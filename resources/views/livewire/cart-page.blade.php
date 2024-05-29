@@ -34,7 +34,7 @@
                         <button wire:click='increaseQty({{ $item['product_id'] }})' class="border rounded-md py-1 px-2 ml-2 hover:bg-rose-300">+</button>
                     </td>
                     <td class="py-4">
-                      {{ number_format($item['total_amount']) }} đ
+                      {{ number_format($item['unit_amount'] * $item['quantity']) }} đ
                     </td>
                     <td>
                       <button wire:click='removeItem({{ $item['product_id'] }})' class="bg-black text-white rounded-full p-1 hover:bg-red-700">
