@@ -17,7 +17,10 @@
                 </tr>
               </thead>
               <tbody>
+                @php $grand_total = 0; @endphp
                 @forelse ($cart_items as $item)
+                  @php $item_total = $item['unit_amount'] * $item['quantity']; @endphp
+                  @php $grand_total += $item_total; @endphp
                   <tr class="text-center" wire:key='{{ $item['product_id'] }}'>
                     <td class="py-4">
                       <span class="font-semibold">{{ $item['name'] }}</span>
@@ -34,7 +37,7 @@
                         <button wire:click='increaseQty({{ $item['product_id'] }})' class="border rounded-md py-1 px-2 ml-2 hover:bg-rose-300">+</button>
                     </td>
                     <td class="py-4">
-                      {{ number_format($item['unit_amount'] * $item['quantity']) }} đ
+                      {{ number_format($item_total) }} đ
                     </td>
                     <td>
                       <button wire:click='removeItem({{ $item['product_id'] }})' class="bg-black text-white rounded-full p-1 hover:bg-red-700">

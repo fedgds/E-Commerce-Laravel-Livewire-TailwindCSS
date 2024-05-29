@@ -41,7 +41,7 @@
                   <button wire:click='decreaseQty' class="w-20 h-full text-white bg-gray-900 rounded-l outline-none cursor-pointer dark:text-white hover:bg-gray-800">
                     <span class="m-auto text-2xl font-thin">-</span>
                   </button>
-                  <input type="number" wire:model='quantity' readonly class="flex items-center w-full font-semibold text-center text-gray-800 placeholder-gray-900 bg-gray-100 border-black dark:text-gray-400 dark:placeholder-gray-400 focus:outline-none text-md hover:text-black" placeholder="1">
+                  <input type="number" wire:model.live='quantity' readonly class="flex items-center w-full font-semibold text-center text-gray-800 placeholder-gray-900 bg-gray-100 border-black dark:text-gray-400 dark:placeholder-gray-400 focus:outline-none text-md hover:text-black" placeholder="1">
                   <button wire:click='increaseQty' class="w-20 h-full text-white bg-gray-900 rounded-r outline-none cursor-pointer dark:text-white hover:bg-gray-800">
                     <span class="m-auto text-2xl font-thin">+</span>
                   </button>
@@ -72,8 +72,10 @@
                     <th class="p-2">Khách hàng</th> 
                     <th class="p-2">Nội dung</th>
                     <th class="p-2">Ngày bình luận</th>
-                    @if (auth()->user()->is_admin == 1)
-                      <th class="p-2">Xóa bình luận</th>
+                    @if (auth()->user())
+                      @if (auth()->user()->is_admin == 1)
+                        <th class="p-2">Xóa bình luận</th>
+                      @endif
                     @endif
                   </tr>
                 </thead>
@@ -83,10 +85,12 @@
                       <td class="p-2">{{ $comment->user->name }}</td>
                       <td class="p-2">{{ $comment->content }}</td>
                       <td class="p-2">{{ $comment->created_at->format('d-m-Y') }}</td>
-                      @if (auth()->user()->is_admin == 1)
-                        <td class="p-2">
-                          <a wire:click.prevent='deleteComments({{ $comment->id }})' href="" class="text-rose-600 font-bold">Gỡ</a>
-                        </td>
+                      @if (auth()->user())
+                        @if (auth()->user()->is_admin == 1)
+                          <td class="p-2">
+                            <a wire:click.prevent='deleteComments({{ $comment->id }})' href="" class="text-rose-600 font-bold">Gỡ</a>
+                          </td>
+                        @endif
                       @endif
                     </tr>
                   @endforeach
@@ -94,12 +98,15 @@
               </table>
             </div>
           @endif
-          <form wire:submit.prevent='comment'>
-            <div>
-              <textarea wire:model='content' class="w-full rounded-md p-2 border border-gray-600" rows="3" placeholder="Nội dung bình luận..."></textarea>
-              <button type="submit" class="rounded-xl bg-black text-white hover:bg-rose-600 px-4 py-1">Gửi</button>
-            </div>
-          </form>
+          @if (auth()->user())
+            <form wire:submit.prevent='comment'>
+              <div>
+                <textarea wire:model='content' class="w-full rounded-md p-2 border border-gray-600" rows="3" placeholder="Nội dung bình luận..."></textarea>
+                <button type="submit" class="rounded-xl bg-black text-white hover:bg-rose-600 px-4 py-1">Gửi</button>
+              </div>
+            </form> 
+          @endif
+
         </div>
         
         <div class="mt-10">
