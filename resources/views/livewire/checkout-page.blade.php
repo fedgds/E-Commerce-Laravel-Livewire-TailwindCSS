@@ -181,8 +181,10 @@
 		</form>
 	</section>
 	<script>
+
 		var config = {
-			cUrl: 'http://127.0.0.1:8000/api/cities'
+			// cUrl: 'http://127.0.0.1:8000/api/cities'
+			cUrl: 'https://api-province-vietnam-production.up.railway.app/api/cities'
 		};
 
 		var citySelect = document.querySelector('.city'),
