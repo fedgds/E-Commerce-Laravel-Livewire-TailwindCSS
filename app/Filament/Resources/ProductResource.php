@@ -103,6 +103,7 @@ class ProductResource extends Resource
                             ->multiple()
                             ->directory('products')
                             ->maxFiles(5)
+                            ->required()
                             ->reorderable()
                     ])
                 ])->columnSpan(2),

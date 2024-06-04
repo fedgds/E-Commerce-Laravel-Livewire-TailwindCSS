@@ -57,6 +57,7 @@ class CategoryResource extends Resource
                     FileUpload::make('image')
                         ->label('Ảnh')
                         ->image()
+                        ->required()
                         ->directory('categories'),
                     Toggle::make('is_active')
                         ->label('Hiển thị')
